@@ -11,6 +11,26 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
+
+  socket.on('typing', () => {
+    console.log('typing');
+  })
+
+  // socket.on('typing', (data) => {
+  //   if(data.typing == true) {
+  //     io.emit('display', data)
+  //   } else {
+  //     io.emit('display', data)
+  //   }
+  // })
+
+  socket.on('display', (data) => {
+    if(data.typing == true) {
+      $('.typing').text(`${data.user}`)
+    } else {
+      $('.typing').text("")
+    }
+  })
 });
 
 http.listen(port, function(){
